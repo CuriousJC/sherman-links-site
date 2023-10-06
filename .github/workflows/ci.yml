@@ -3,7 +3,7 @@
 #TODO:
 # run terraform from CI/CD
 # pass name between TF and Actions
-#
+# custom hostname from sherman.industries
 
 name: CI
 
@@ -47,4 +47,4 @@ jobs:
       - name: Upload HTML file to S3
         run: |
           aws s3 cp index.html s3://sherman-tf-public/
-        working-directory: path/to/your/html/file/directory
+        working-directory: site
