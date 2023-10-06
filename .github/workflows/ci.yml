@@ -36,8 +36,6 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-            - name: Set up AWS CLI
-
       - name: AWS Creds
         uses: aws-actions/configure-aws-credentials@v1
         with:
