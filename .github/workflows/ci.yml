@@ -1,5 +1,10 @@
 # This is a basic workflow to help you get started with Actions
 
+#TODO:
+# run terraform from CI/CD
+# pass name between TF and Actions
+#
+
 name: CI
 
 # Controls when the workflow will run
@@ -26,14 +31,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
+          ls
           echo test, and deploy your project.
 
       - name: AWS Creds
@@ -45,5 +46,5 @@ jobs:
 
       - name: Upload HTML file to S3
         run: |
-          aws s3 cp index.html s3://your-static-bucket-name/
+          aws s3 cp index.html s3://sherman-tf-public/
         working-directory: path/to/your/html/file/directory
