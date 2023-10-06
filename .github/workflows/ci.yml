@@ -26,6 +26,10 @@ jobs:
     # The type of runner that the job will run as a container
     runs-on: ubuntu-latest
 
+    env:
+      TF_VAR_some_secret: "some_secret"
+      TF_VAR_some_other_secret: "some_secret"
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
