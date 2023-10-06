@@ -50,7 +50,7 @@ jobs:
         working-directory: terraform
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -var-file "aws.tfvars"
+        run: terraform apply -auto-approve
         working-directory: terraform
 #
 #
