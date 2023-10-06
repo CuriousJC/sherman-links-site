@@ -55,3 +55,12 @@ resource "aws_s3_bucket_website_configuration" "sherman-tf-public" {
   #   host_name = aws_s3_bucket.sherman-tf-public.bucket_regional_domain_name
   # }
 }
+
+resource "aws_s3_object" "index_file" {
+  bucket       = aws_s3_bucket.sherman-tf-public.id
+  key          = "index.html"         # The desired object key (file name) in the bucket
+  source       = "../site/index.html" # Local path to your index.html file
+  content_type = "text/html"          # Specify the content type if needed
+  acl          = "public-read"        # Set ACL to make the object publicly readable
+  etag         = filemd5("../site/index.html")
+}
