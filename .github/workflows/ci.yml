@@ -5,6 +5,7 @@
 # custom hostname from sherman.industries fronted by cloudflare
 # solve for the ssl certificate
 # make a terraform output of this:  http://sherman-tf-public.s3-website-us-east-1.amazonaws.com/
+# add a favicon to the webpage
 
 name: CI
 
