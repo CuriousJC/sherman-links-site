@@ -14,3 +14,7 @@ output "bucket_arn" {
 output "bucket_region_domain_name" {
   value = aws_s3_bucket.links-sherman.bucket_regional_domain_name
 }
+
+output "variable_output_test" {
+  value = var.some_secret
+}
