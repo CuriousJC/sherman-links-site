@@ -111,7 +111,7 @@ resource "aws_s3_bucket_website_configuration" "links-sherman" {
 
 }
 
-resource "aws_s3_object" "index_file" {
+resource "aws_s3_object" "links_sherman_index_file" {
   bucket       = aws_s3_bucket.links-sherman.id
   key          = "index.html"         # The desired object key (file name) in the bucket
   source       = "../site/index.html" # Local path to your index.html file
