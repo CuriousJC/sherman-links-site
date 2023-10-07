@@ -1,9 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
 #TODO:
-# run terraform from CI/CD
-# custom hostname from sherman.industries fronted by cloudflare
-# solve for the ssl certificate
 # make a terraform output of this:  http://sherman-tf-public.s3-website-us-east-1.amazonaws.com/
 # add a favicon to the webpage
 
@@ -57,9 +54,3 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve
         working-directory: terraform
-#
-#
-#      - name: Upload HTML file to S3
-#        run: |
-#          aws s3 cp index.html s3://sherman-tf-public/
-#        working-directory: site
