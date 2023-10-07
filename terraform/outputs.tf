@@ -1,4 +1,16 @@
-output "some_output_here" {
-  description = "some output from a resource could go here"
-  value       = "empty output..."
+output "index etag" {
+  description = "has of file contents"
+  value       = aws_s3_object.links_sherman_index_file.etag
+}
+
+output "bucket_website endpoint" {
+  value = aws_s3_bucket.links-sherman.website_endpoint
+}
+
+output "bucket_arn" {
+  value = aws_s3_bucket.links-sherman.arn
+}
+
+output "bucket_region_domain_name" {
+  value = aws_s3_bucket.links-sherman.bucket_regional_domain_name
 }
