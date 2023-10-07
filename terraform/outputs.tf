@@ -1,9 +1,9 @@
-output "index etag" {
+output "index_etag" {
   description = "has of file contents"
   value       = aws_s3_object.links_sherman_index_file.etag
 }
 
-output "bucket_website endpoint" {
+output "bucket_website_endpoint" {
   value = aws_s3_bucket.links-sherman.website_endpoint
 }
 
