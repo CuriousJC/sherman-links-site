@@ -1,0 +1,3 @@
+#tfvars files are ignored, use this .example to build your own if needed
+#this var file is .gitignored so if you get a new computer take it with you and/or give to someone else.
+some_secret = "Hexxxx9"
