@@ -2,8 +2,8 @@
 
 terraform {
   backend "s3" {
-    bucket = "xolsiion-tf-state"
-    key    = "xolsiion/links-site"
+    bucket = "curiousjc-tf-state"
+    key    = "curiousjc/links-site"
     region = "us-east-1"
   }
 
