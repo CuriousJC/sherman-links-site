@@ -42,12 +42,29 @@ resource "aws_s3_bucket_website_configuration" "links-sherman" {
 
 }
 
-# Uploads index file and specifies the proper acl so it is readable.  The etag is used to has the file and pick up changes and force a new TF apply on the resouce
-resource "aws_s3_object" "links_sherman_index_file" {
+locals {
+  mime_types = {
+    "css"  = "text/css"
+    "html" = "text/html"
+    "ico"  = "image/vnd.microsoft.icon"
+    "jpg"  = "image/jpeg"
+    "jpeg" = "image/jpeg"
+    "js"   = "application/javascript"
+    "json" = "application/json"
+    "map"  = "application/json"
+    "png"  = "image/png"
+    "svg"  = "image/svg+xml"
+    "txt"  = "text/plain"
+  }
+}
+
+resource "aws_s3_object" "links_sherman_site" {
+  for_each = fileset("../site/", "**/*.*")
+
   bucket       = aws_s3_bucket.links-sherman.id
-  key          = "index.html"         # The desired object key (file name) in the bucket
-  source       = "../site/index.html" # Local path to your index.html file
-  content_type = "text/html"          # Specify the content type if needed
-  acl          = "public-read"        # Set ACL to make the object publicly readable
-  etag         = filemd5("../site/index.html")
+  key          = each.key
+  source       = "../site/${each.key}"
+  content_type = lookup(tomap(local.mime_types), element(split(".", each.key), length(split(".", each.key)) - 1))
+  etag         = filemd5("../site/${each.key}")
+  acl          = "public-read"
 }
