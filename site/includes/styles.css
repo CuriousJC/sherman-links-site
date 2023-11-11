@@ -25,3 +25,10 @@ footer {
   padding: 1em;
   text-align: center;
 }
+
+li {
+  list-style: none;
+  margin-bottom: 5px; /* Adjust as needed */
+  color: #333; /* Adjust text color */
+  font-size: 14px; /* Adjust font size */
+}
