@@ -7,10 +7,12 @@ on: #Manual trigger
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  destroy:
     # The type of runner that the job will run as a container
     runs-on: ubuntu-latest
+
+    env:
+      TF_VAR_some_secret: ${{ vars.TF_VAR_some_secret }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
