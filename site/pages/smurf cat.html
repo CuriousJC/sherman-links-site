@@ -4,7 +4,9 @@
 
 
 <iframe width="1033" height="888" src="https://www.youtube.com/embed/9YC4NQkpTQc?si=_NyWbx979H9H9Tlx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
+function removeHtmlExtension(url) {
+  return url.replace(/\.html$/, '');
+}
 <script> 
 var myVideo = document.getElementById("video1"); 
 
