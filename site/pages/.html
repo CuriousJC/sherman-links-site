@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Convert MP4 to PNG</title>
+  </head>
+  <body>
+    <input type="file" id="video-file" accept="video/mp4">
+    <button id="convert-button">Convert to PNG</button>
+    <div id="output"></div>
+
+    <script>
+      const videoFileInput = document.getElementById('video-file');
+      const convertButton = document.getElementById('convert-button');
+      const outputDiv = document.getElementById('output');
+
+      convertButton.addEventListener('click', () => {
+        const file = videoFileInput.files[0];
+        if (file) {
+          const video = document.createElement('video');
+          video.src = URL.createObjectURL(file);
+          video.play();
+
+          const canvas = document.createElement('canvas');
+          canvas.width = 1920; // adjust this to change the width
+          canvas.height = 1080; // adjust this to change the height
+
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+          const pngData = canvas.toDataURL('image/png');
+
+          const framesPerSecond = 30; // adjust this to change the frame rate
+          const duration = Math.floor(video.duration);
+          for (let t = 0; t <= duration; t += 1 / framesPerSecond) {
+            canvas.width = canvas.width;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const pngImage = canvas.toDataURL('image/png');
+            const filename = `${t}.png`;
+            const link = document.createElement('a');
+            link.href = pngImage;
+            link.download = filename;
+            outputDiv.appendChild(link);
+            link.click();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
