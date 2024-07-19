@@ -1,51 +1,49 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <title>Convert MP4 to PNG</title>
+    <title>KNN Classifier</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.7.0/dist/tf.min.js"></script>
   </head>
   <body>
-    <input type="file" id="video-file" accept="video/mp4">
-    <button id="convert-button">Convert to PNG</button>
-    <div id="output"></div>
+    <h1>KNN Classifier</h1>
+    <form id="input-form">
+      <label for="image">Upload an image:</label>
+      <input type="file" id="image" accept="image/*">
+      <button id="classify-btn">Classify</button>
+      <p id="result"></p>
+    </form>
 
-    <script>
-      const videoFileInput = document.getElementById('video-file');
-      const convertButton = document.getElementById('convert-button');
-      const outputDiv = document.getElementById('output');
+    <script src="knn_classifier.js"></script>
+// Load the MNIST dataset
+const mnist = tf.load('mnist');
 
-      convertButton.addEventListener('click', () => {
-        const file = videoFileInput.files[0];
-        if (file) {
-          const video = document.createElement('video');
-          video.src = URL.createObjectURL(file);
-          video.play();
+// Create a KNN classifier with k=5
+const k = 5;
+const knn = {
+  classify(x) {
+    const distances = [];
+    for (let i = 0; i < mnist.data.length; i++) {
+      const distance = tf.sqrt(tf.dot(x, mnist.data[i]) / (mnist.data[i].length * mnist.data[i].length));
+      distances.push({ distance, label: mnist.labels[i] });
+    }
+    distances.sort((a, b) => a.distance - b.distance);
+    const labels = [];
+    for (let i = 0; i < k; i++) {
+      labels.push(distances[i].label);
+    }
+    return tf.argMode(labels).dataSync();
+  }
+};
 
-          const canvas = document.createElement('canvas');
-          canvas.width = 1920; // adjust this to change the width
-          canvas.height = 1080; // adjust this to change the height
-
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-          const pngData = canvas.toDataURL('image/png');
-
-          const framesPerSecond = 30; // adjust this to change the frame rate
-          const duration = Math.floor(video.duration);
-          for (let t = 0; t <= duration; t += 1 / framesPerSecond) {
-            canvas.width = canvas.width;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const pngImage = canvas.toDataURL('image/png');
-            const filename = `${t}.png`;
-            const link = document.createElement('a');
-            link.href = pngImage;
-            link.download = filename;
-            outputDiv.appendChild(link);
-            link.click();
-          }
-        }
-      });
-    </script>
-  </body>
+// Set up the form submission event handler
+document.getElementById('classify-btn').addEventListener('click', async () => {
+  const imageFile = document.getElementById('image').files[0];
+  const img = await tf.fromPixels(imageFile);
+  const resizedImg = tf.image.resizeBilinear(img, [28, 28]);
+    
+  const flattenedImg = resizedImg.flatten();
+  const predictedLabel = knn.classify(flattenedImg);
+  document.getElementById('result').innerText = `Predicted label: ${predictedLabel}`;
+});  
+    </body>
 </html>
