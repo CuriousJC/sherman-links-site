@@ -1,21 +1,14 @@
-# links-site
-Static site for links
+## sherman-links-site
+This is a simple static content website that is deployed/hosted on an s3 bucket in AWS.  It runs a GitHub Actions workflow on commit to update teh s3 bucket contents using terraform.
 
-## Table of Contents
+## Repository Structure
 
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Prerequisites](#Prerequisites)
+### `.github/workflows`
+GitHub Actions workflow files. Runs creation/destroy terraform to keep content up-to-date.
 
-## Getting Started
+### `site`
+The `site` directory holds the static content for the site and is directly sent to the s3 host.
 
-Provide instructions on how to get a copy of the project up and running on a local machine for development and testing purposes.
-
-## Usage
-
-Explain how to use your project, including any configuration or important usage notes.
-
-### Prerequisites
-
-List any software or dependencies that need to be installed before someone can use your project.
+### `terraform`
+The `terraform` directory contains infrastructure-as-code configurations using [Terraform](https://www.terraform.io/). These scripts define and provision cloud resources and environments in a declarative way, enabling automated deployments and infrastructure management.
 
